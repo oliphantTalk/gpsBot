@@ -1,1 +1,4 @@
 python-telegram-bot
+#sqlite3
+pysqlite3
+#para levantar con doker

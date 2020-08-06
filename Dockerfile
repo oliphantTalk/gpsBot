@@ -1,9 +1,8 @@
-FROM python:3.6-alpine
-COPY app /app
-WORKDIR /app
-#ENV FLASK_APP app.py
-#ENV FLASK_RUN_HOST 0.0.0.0
-#COPY requirements.txt requirements.txt
+FROM python:3.8
+COPY requirements.txt requirements.txt
+COPY app.py app.py
+COPY InMemDb.py InMemDb.py
 RUN pip install -r requirements.txt
 ENTRYPOINT ["python"]
 CMD ["app.py"]
+
