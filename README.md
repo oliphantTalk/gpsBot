@@ -9,7 +9,7 @@ Levantar aplicacion
 * `python app.py`
 
 CON DOCKER
-
+* En requirements, comentar sqlite3 y descomentar pysqlite
 * `docker-compose up`
 
 Configuracion -> para probarlo local se debera:

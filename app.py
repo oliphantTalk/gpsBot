@@ -3,15 +3,19 @@ import html
 import json
 import logging
 import traceback
-from datetime import date
+from datetime import date, datetime
 from telegram import Update, ParseMode, ReplyKeyboardRemove, ReplyKeyboardMarkup, KeyboardButton
 from telegram.ext import CallbackContext, ConversationHandler
 from telegram.ext import (Updater, CommandHandler, MessageHandler, Filters)
 from InMemDb import InMemDb
 
 GENDER, PHOTO, LOCATION, BIO, S_LOCATION, DESCRIPTION = range(6)
+
+
 TOKEN = '1389694102:AAFkvMe3o9JIhs2MpuAcUVFDI3RBL7EPQbQ'
 DEV_CHAT_ID = "456258978"
+
+
 POINTS = 300
 InMemDb = InMemDb()
 
@@ -77,10 +81,10 @@ def rcv_photo(update, context):
     user = update.message.from_user
     photo_file = update.message.photo[-1].get_file()
     InMemDb.new_report_w_pic(update.message.chat_id,
-                             f'{user.first_name}_{update.message.chat_id}_{str(date.today())}.jpg')
-    photo_file.download(f'{user.first_name}_{update.message.chat_id}_{str(date.today())}.jpg')
+                             f'{user.first_name}_{update.message.chat_id}_{str(datetime.today())}.jpg')
+    photo_file.download(f'{user.first_name}_{update.message.chat_id}_{str(datetime.today())}.jpg')
     logger.info("Imagen de %s: %s", user.first_name,
-                f'{user.first_name}_{update.message.chat_id}_{str(date.today())}.jpg')
+                f'{user.first_name}_{update.message.chat_id}_{str(datetime.today())}.jpg')
     update.message.reply_text('Perfecto, ahora manda la ubicacion del residuo encontrado!')
     location_keyboard = telegram.KeyboardButton(text="Enviar ubicacion", request_location=True)
     custom_keyboard = [[location_keyboard]]
@@ -119,7 +123,7 @@ def cancel(update, context):
 def help_callback(update, context):
     msg = "Hola soy el bot que te ayudara a ser un ciudadano responsable." \
           "Para registrarte puedes mandar /start o si ya estas registrado y quieres reportar un residuo electrónico " \
-          "puedes pulsar /send. Para chequear tus puntos actuales puedes pulsar /check_points." \
+          "puedes pulsar /send. Para chequear tus puntos actuales puedes pulsar /points." \
           "Muchas gracias por ser un buen ciudadano!"
     update.message.reply_text(msg)
 
